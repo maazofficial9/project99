@@ -1,0 +1,176 @@
+mysql> create database student_apoorva;
+Query OK, 1 row affected (0.97 sec)
+
+mysql> use student_apoorva;
+Database changed
+mysql> create table student(usn varchar(10) not null primary key,sname varchar(10),address varchar(10),phone decimal(10),gender char(10));
+Query OK, 0 rows affected (1.10 sec)
+
+mysql> desc student;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| usn     | varchar(10)   | NO   | PRI | NULL    |       |
+| sname   | varchar(10)   | YES  |     | NULL    |       |
+| address | varchar(10)   | YES  |     | NULL    |       |
+| phone   | decimal(10,0) | YES  |     | NULL    |       |
+| gender  | char(10)      | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.06 sec)
+
+mysql> insert into student values(11,'appu','talakadu','7204331139','femal');
+Query OK, 1 row affected (0.58 sec)
+
+mysql> insert into student values(12,'paddu','chamarajanagara','7204125739','femal');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into student values(13,'theju','tn pura','7223655739','femal');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into student values(14,'tarun','benglore','8533655739','male');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from student;
++-----+-------+----------+------------+--------+
+| usn | sname | address  | phone      | gender |
++-----+-------+----------+------------+--------+
+| 11  | appu  | talakadu | 7204331139 | femal  |
+| 12  | paddu | mysore   | 7204125739 | femal  |
+| 13  | theju | tn pura  | 7223655739 | femal  |
+| 14  | tarun | benglore | 8533655739 | male   |
++-----+-------+----------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> create table semsec(ssid varchar(10) primary key not null,sem decimal(10),sec varchar(20));
+Query OK, 0 rows affected (5.88 sec)
+
+mysql>
+mysql> desc semsec;
++-------+---------------+------+-----+---------+-------+
+| Field | Type          | Null | Key | Default | Extra |
++-------+---------------+------+-----+---------+-------+
+| ssid  | varchar(10)   | NO   | PRI | NULL    |       |
+| sem   | decimal(10,0) | YES  |     | NULL    |       |
+| sec   | varchar(20)   | YES  |     | NULL    |       |
++-------+---------------+------+-----+---------+-------+
+3 rows in set (1.12 sec)
+
+mysql> insert into semsec values('5a','3','a');
+Query OK, 1 row affected (0.69 sec)
+
+mysql> insert into semsec values('6a','4','b');
+Query OK, 1 row affected (0.29 sec)
+
+mysql> insert into semsec values('6b','5','a');
+Query OK, 1 row affected (0.39 sec)
+
+mysql> insert into semsec values('7a','7','c');
+Query OK, 1 row affected (0.48 sec)
+
+mysql> select * from semsec;
++------+------+------+
+| ssid | sem  | sec  |
++------+------+------+
+| 5a   |    3 | a    |
+| 6a   |    4 | b    |
+| 6b   |    5 | a    |
+| 7a   |    7 | c    |
++------+------+------+
+4 rows in set (0.05 sec)
+
+mysql> create table class(usn varchar(10)references student(usn),ssid varchar(10)references semsec(ssid));
+Query OK, 0 rows affected (1.02 sec)
+
+mysql> desc class;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| usn   | varchar(10) | YES  |     | NULL    |       |
+| ssid  | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.04 sec)
+
+mysql> insert into class values(03,'3a');
+Query OK, 1 row affected (0.24 sec)
+
+mysql> insert into class values(04,'2b');
+Query OK, 1 row affected (0.31 sec)
+
+mysql> insert into class values(05,'2a');
+Query OK, 1 row affected (0.63 sec)
+
+mysql> select * from class;
++------+------+
+| usn  | ssid |
++------+------+
+| 3    | 3a   |
+| 4    | 2b   |
+| 5    | 2a   |
++------+------+
+3 rows in set (0.00 sec)
+
+mysql> create table subject(subcode varchar(20),title varchar(20),sem varchar(10)references semsec(sem),creadits varchar(20));
+Query OK, 0 rows affected (0.84 sec)
+
+mysql> desc subject;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| subcode  | varchar(20) | YES  |     | NULL    |       |
+| title    | varchar(20) | YES  |     | NULL    |       |
+| sem      | varchar(10) | YES  |     | NULL    |       |
+| creadits | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> insert into subject values(220,'CN','2','5');
+Query OK, 1 row affected (0.51 sec)
+
+mysql> insert into subject values(221,'CHMA','3','6');
+Query OK, 1 row affected (0.35 sec)
+
+mysql> insert into subject values(222,'PYTHON','1','7');
+Query OK, 1 row affected (0.84 sec)
+
+mysql> insert into subject values(223,'DBMS','4','9');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> SELECT * FROM SUBJECT;
++---------+--------+------+----------+
+| subcode | title  | sem  | creadits |
++---------+--------+------+----------+
+| 220     | CN     | 2    | 5        |
+| 221     | CHMA   | 3    | 6        |
+| 222     | PYTHON | 1    | 7        |
+| 223     | DBMS   | 4    | 9        |
++---------+--------+------+----------+
+4 rows in set (0.09 sec)
+
+mysql> create table IAmarks(usn varchar(10) references student(usn) on delete cascade,subcode varchar(20) references subject(subcode) on delete cascade,ssid varchar(10) references class(ssid) on delete cascade,tesT1 integer(10),tesT2 integer(10),finalIA integer(10));
+Query OK, 0 rows affected, 3 warnings (0.94 sec)
+
+mysql> desc IAMARKS;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| usn     | varchar(10) | YES  |     | NULL    |       |
+| subcode | varchar(20) | YES  |     | NULL    |       |
+| ssid    | varchar(10) | YES  |     | NULL    |       |
+| tesT1   | int         | YES  |     | NULL    |       |
+| tesT2   | int         | YES  |     | NULL    |       |
+| finalIA | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM SUBJECT;
++---------+--------+------+----------+
+| subcode | title  | sem  | creadits |
++---------+--------+------+----------+
+| 220     | CN     | 2    | 5        |
+| 221     | CHMA   | 3    | 6        |
+| 222     | PYTHON | 1    | 7        |
+| 223     | DBMS   | 4    | 9        |
++---------+--------+------+----------+
+4 rows in set (0.01 sec)
+
+mysql>
